@@ -11,7 +11,6 @@ class Board
 
     private $width;
     private $height;
-    private $objects;
 
     function __construct(int $width = self::DEFAULT_BOARD_WIDTH, int $height = self::DEFAULT_BOARD_HEIGHT)
     {
@@ -22,23 +21,10 @@ class Board
 
         $this->width = $width;
         $this->height = $height;
-        $this->objects = array();
     }
 
-    public function addObject(Positionable $object, int $x, int $y)
+    public function positionInBounds(int $x, int $y)
     {
-        if ($this->positionInBounds($x, $y))
-        {
-            $this->objects[] = $object;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private function positionInBounds(int $x, int $y)
-    {
-        return ($x > 0 && $y > 0 && $x < $this->width && $y < $this->height);
+        return ($x >= 0 && $y >= 0 && $x <= $this->width && $y <= $this->height);
     }
 }
