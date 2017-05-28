@@ -34,7 +34,7 @@ class RobotApp
     public function run(array $argv)
     {
         $reader = new CommandReader();
-        $delegate = new RobotCommandDelegate(new Robot(new Board(5, 5)));
+        $delegate = new RobotCommandDelegate(new Robot(new Board(5, 5), true));
 
         $stdInFileHandle = fopen( 'php://stdin', 'r' );
 

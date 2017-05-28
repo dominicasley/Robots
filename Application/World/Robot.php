@@ -9,10 +9,12 @@ class Robot extends Positionable
 {
     private $placed = false;
     private $board = null;
+    private $printMessages = false;
 
-    public function __construct(Board $board)
+    public function __construct(Board $board, bool $printMessages = false)
     {
         $this->board = $board;
+        $this->printMessages = $printMessages;
     }
 
     public function place(int $x, int $y, string $heading)
@@ -27,12 +29,15 @@ class Robot extends Positionable
         }
         else
         {
-            printf(
-                "ERROR: Placing robot outside of board bounds is not allowed.\n" .
-                "Valid positions are between 0 - %d and 0 - %d\n\n",
-                $this->board->getWidth(),
-                $this->board->getHeight()
-            );
+            if ($this->printMessages)
+            {
+                printf(
+                    "ERROR: Placing robot outside of board bounds is not allowed.\n" .
+                    "Valid positions are between 0 - %d and 0 - %d\n\n",
+                    $this->board->getWidth(),
+                    $this->board->getHeight()
+                );
+            }
         }
 
         // something went wrong -- position out of board bounds
@@ -50,7 +55,10 @@ class Robot extends Positionable
             }
             else
             {
-                printf("ERROR: Cannot move robot out of board bounds\n\n");
+                if ($this->printMessages)
+                {
+                    printf("ERROR: Cannot move robot out of board bounds\n\n");
+                }
             }
         }
     }
@@ -59,7 +67,7 @@ class Robot extends Positionable
     {
         if ($this->placed)
         {
-            $this->direction = Vector::rotate($this->direction, 90);
+            $this->direction = Vector::rotate($this->direction, -90);
         }
     }
 
@@ -67,7 +75,7 @@ class Robot extends Positionable
     {
         if ($this->placed)
         {
-            $this->direction = Vector::rotate($this->direction, -90);
+            $this->direction = Vector::rotate($this->direction, 90);
         }
     }
 
@@ -82,5 +90,25 @@ class Robot extends Positionable
                 Heading::convertHeadingToString(Heading::fromVector($this->direction))
             );
         }
+    }
+
+    public function getPositionX()
+    {
+        return $this->position->x;
+    }
+
+    public function getPositionY()
+    {
+        return $this->position->y;
+    }
+
+    public function getDirectionX()
+    {
+        return $this->direction->x;
+    }
+
+    public function getDirectionY()
+    {
+        return $this->direction->y;
     }
 }
