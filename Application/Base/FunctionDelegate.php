@@ -12,17 +12,11 @@ class FunctionDelegate
         $this->functionName = $functionName;
     }
 
-    /**
-     * @return mixed
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * @return mixed
-     */
     public function getFunctionName()
     {
         return $this->functionName;
