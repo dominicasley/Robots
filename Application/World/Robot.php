@@ -25,6 +25,15 @@ class Robot extends Positionable
 
             return true;
         }
+        else
+        {
+            printf(
+                "ERROR: Placing robot outside of board bounds is not allowed.\n" .
+                "Valid positions are between 0 - %d and 0 - %d\n\n",
+                $this->board->getWidth(),
+                $this->board->getHeight()
+            );
+        }
 
         // something went wrong -- position out of board bounds
         return false;
@@ -38,6 +47,10 @@ class Robot extends Positionable
             if ($this->board->positionInBounds($newPosition->x, $newPosition->y))
             {
                 $this->position = $newPosition;
+            }
+            else
+            {
+                printf("ERROR: Cannot move robot out of board bounds\n\n");
             }
         }
     }
@@ -63,7 +76,7 @@ class Robot extends Positionable
         if ($this->placed)
         {
             printf(
-                "X: %d\nY: %d\nF: %s\n",
+                "X: %d\nY: %d\nF: %s\n\n",
                 $this->position->x,
                 $this->position->y,
                 Heading::convertHeadingToString(Heading::fromVector($this->direction))

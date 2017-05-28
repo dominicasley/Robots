@@ -23,8 +23,18 @@ class Board
         $this->height = $height;
     }
 
+    public function getWidth()
+    {
+        return $this->width;
+    }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
     public function positionInBounds(int $x, int $y)
     {
-        return ($x >= 0 && $y >= 0 && $x <= $this->width && $y <= $this->height);
+        return ($x >= 0 && $y >= 0 && $x < $this->width && $y < $this->height);
     }
 }

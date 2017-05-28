@@ -73,7 +73,7 @@ class CommandReader
             }
             else
             {
-                printf("PARSE ERROR: Unknown command at $line\n");
+                printf("PARSE ERROR: Unknown command at $line\n\n");
 
                 return false;
             }
@@ -85,5 +85,10 @@ class CommandReader
     public function getCommandBuffer()
     {
         return $this->commandBuffer;
+    }
+
+    public function flushCommandBuffer()
+    {
+        $this->commandBuffer = array();
     }
 }
