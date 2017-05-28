@@ -62,7 +62,7 @@ class Vector
 
     public static function rotate(Vector $vec, float $angle)
     {
-        $rad = deg2rad($angle);
+        $rad = deg2rad(-$angle);
         $x = $vec->x * cos($rad) - $vec->y * sin($rad);
         $y = $vec->x * sin($rad) + $vec->y * cos($rad);
 
