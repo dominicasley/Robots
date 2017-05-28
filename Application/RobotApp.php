@@ -1,6 +1,8 @@
 <?php
 namespace Robots\Application;
 
+use Robots\Application\Input\RobotCommandDelegate;
+use Robots\Application\Input\CommandReader;
 use Robots\Application\World\Board;
 use Robots\Application\World\Robot;
 
@@ -8,9 +10,17 @@ class RobotApp
 {
     public function run()
     {
-        $board = new Board(100, 200);
-        $robot = new Robot($board);
+        $reader = new CommandReader();
+        $delegate = new RobotCommandDelegate(new Robot(new Board(5, 5)));
 
-        printf("MEmes\n");
+        $stdInFileHandle = fopen( 'php://stdin', 'r' );
+
+        while($input = fgets($stdInFileHandle))
+        {
+            if ($reader->parseLine($input))
+            {
+                $delegate->executeBuffer($reader->getCommandBuffer());
+            }
+        }
     }
 }
